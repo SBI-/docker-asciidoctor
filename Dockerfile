@@ -6,7 +6,6 @@ ARG asciidoctor_pdf_version=1.5.0.alpha.16
 ENV ASCIIDOCTOR_VERSION=${asciidoctor_version} \
   ASCIIDOCTOR_PDF_VERSION=${asciidoctor_pdf_version}
 
-
 # Installing package required for the runtime of
 # any of the asciidoctor-* functionnalities
 RUN apt update && apt install -y \
@@ -78,7 +77,7 @@ RUN git clone git://github.com/BurntSushi/erd \
     && cabal build
 
 # add erd to path
-ENV PATH="/erd/dist/build/erd/erd:${PATH}"
+ENV PATH="/erd/dist/build/erd:${PATH}"
     
 WORKDIR /documents
 VOLUME /documents
