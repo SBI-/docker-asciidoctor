@@ -34,7 +34,10 @@ RUN apt update && apt install -y \
     libgdk-pixbuf2.0-dev \ 
     libcairo2-dev \ 
     libpango1.0-dev \ 
-    fonts-lyx
+    fonts-lyx \
+    git \
+    ghc \
+    cabal-install
 
 RUN gem install --no-document \
     rake \
@@ -63,6 +66,20 @@ RUN python -m pip install --upgrade pip \
     nwdiag \
     Pygments \
     seqdiag 
+
+# Install erd
+RUN git clone git://github.com/BurntSushi/erd \
+    && cd erd \
+    && pwd \
+    && cabal update \
+    && cabal install graphviz \
+    && cabal install parsec \
+    && cabal configure \
+    && cabal build
+
+# symlink to erd on path (this could also just change
+# the path variable.)
+RUN ln -s /erd/dist/build/erd/erd /usr/bin/erd
     
 WORKDIR /documents
 VOLUME /documents
