@@ -1,6 +1,4 @@
-FROM alpine:3.7
-
-LABEL MAINTAINERS="Guillaume Scheibel <guillaume.scheibel@gmail.com>, Damien DUPORTAL <damien.duportal@gmail.com>"
+FROM debian:stable
 
 ARG asciidoctor_version=1.5.7.1
 ARG asciidoctor_pdf_version=1.5.0.alpha.16
@@ -8,34 +6,39 @@ ARG asciidoctor_pdf_version=1.5.0.alpha.16
 ENV ASCIIDOCTOR_VERSION=${asciidoctor_version} \
   ASCIIDOCTOR_PDF_VERSION=${asciidoctor_pdf_version}
 
+
 # Installing package required for the runtime of
 # any of the asciidoctor-* functionnalities
-RUN apk add --no-cache \
-    bash \
-    curl \
+RUN apt update && apt install -y \
     ca-certificates \
-    findutils \
-    font-bakoma-ttf \
+    curl \
     graphviz \
     inotify-tools \
+    build-essential \
     make \
-    openjdk8-jre \
-    py2-pillow \
-    py-setuptools \
-    python2 \
-    ruby \
-    ruby-mathematical \
-    ttf-liberation \
-    unzip \
-    which
-
-# Installing Ruby Gems needed in the image
-# including asciidoctor itself
-RUN apk add --no-cache --virtual .rubymakedepends \
-    build-base \
-    libxml2-dev \
+    cmake \
+    openjdk-8-jre \
+    python2.7-dev \
     ruby-dev \
-  && gem install --no-document \
+    ttf-liberation \
+    libxml2-dev \
+    python-pip \
+    libpango1.0-dev \
+    bison \
+    flex \
+    libgdk-pixbuf2.0-0 \
+    libgdk-pixbuf2.0-common \
+    libgdk-pixbuf2.0-dev \ 
+    libffi-dev \ 
+    libxml2-dev \ 
+    libgdk-pixbuf2.0-dev \ 
+    libcairo2-dev \ 
+    libpango1.0-dev \ 
+    fonts-lyx
+
+RUN gem install --no-document \
+    rake \
+    mathematical \
     "asciidoctor:${ASCIIDOCTOR_VERSION}" \
     asciidoctor-confluence \
     asciidoctor-diagram \
@@ -48,28 +51,19 @@ RUN apk add --no-cache --virtual .rubymakedepends \
     haml \
     kindlegen:3.0.3 \
     pygments.rb \
-    rake \
     rouge \
     slim \
     thread_safe \
-    tilt \
-  && apk del -r --no-cache .rubymakedepends
+    tilt
 
-# Installing Python dependencies for additional
-# functionnalities as diagrams or syntax highligthing
-RUN apk add --no-cache --virtual .pythonmakedepends \
-    build-base \
-    python2-dev \
-    py2-pip \
-  && pip install --upgrade pip \
-  && pip install --no-cache-dir \
+RUN python -m pip install --upgrade pip \
+  && python -m pip install --no-cache-dir \
     actdiag \
     'blockdiag[pdf]' \
     nwdiag \
     Pygments \
-    seqdiag \
-  && apk del -r --no-cache .pythonmakedepends
-
+    seqdiag 
+    
 WORKDIR /documents
 VOLUME /documents
 
