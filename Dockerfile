@@ -77,9 +77,8 @@ RUN git clone git://github.com/BurntSushi/erd \
     && cabal configure \
     && cabal build
 
-# symlink to erd on path (this could also just change
-# the path variable.)
-RUN ln -s /erd/dist/build/erd/erd /usr/bin/erd
+# add erd to path
+ENV PATH="/erd/dist/build/erd/erd:${PATH}"
     
 WORKDIR /documents
 VOLUME /documents
