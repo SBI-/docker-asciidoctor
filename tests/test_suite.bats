@@ -64,6 +64,10 @@ teardown() {
   docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" which dot
 }
 
+@test "dot erd is installed and in the path" {
+  docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" which erd
+}
+
 @test "asciidoctor-confluence is installed and in the path" {
   docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" which asciidoctor-confluence
 }
