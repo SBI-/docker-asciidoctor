@@ -69,7 +69,6 @@ RUN python -m pip install --upgrade pip \
 # Install erd
 RUN git clone git://github.com/BurntSushi/erd \
     && cd erd \
-    && pwd \
     && cabal update \
     && cabal install graphviz \
     && cabal install parsec \
