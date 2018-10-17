@@ -64,7 +64,7 @@ teardown() {
   docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" which dot
 }
 
-@test "dot erd is installed and in the path" {
+@test "erd is installed and in the path" {
   docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" which erd
 }
 
@@ -108,7 +108,8 @@ teardown() {
 }
 
 @test "Bakoma Fonts are installed to render correctly the square root from asciidoctor-mathematical" {
-  docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" apk info font-bakoma-ttf
+  #docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" apk info font-bakoma-ttf
+  docker run -t --rm "${DOCKER_IMAGE_NAME_TO_TEST}" fc-match "bakoma" && dpkg -l fonts-lyx
 }
 
 @test "We can generate an HTML document with asciidoctor-mathematical as backend" {
