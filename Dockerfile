@@ -46,6 +46,7 @@ RUN gem install --no-document \
     asciidoctor-diagram \
     asciidoctor-epub3:1.5.0.alpha.7 \
     asciidoctor-mathematical \
+    asciimath \
     "asciidoctor-pdf:${ASCIIDOCTOR_PDF_VERSION}" \
     asciidoctor-revealjs \
     coderay \
