@@ -1,6 +1,6 @@
 FROM debian:stable
 
-ARG asciidoctor_version=1.5.7.1
+ARG asciidoctor_version=1.5.8
 ARG asciidoctor_pdf_version=1.5.0.alpha.16
 
 ENV ASCIIDOCTOR_VERSION=${asciidoctor_version} \
