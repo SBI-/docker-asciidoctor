@@ -1,10 +1,23 @@
 FROM debian:stable
 
-ARG asciidoctor_version=1.5.8
+ARG asciidoctor_version=2.0.9
+ARG asciidoctor_confluence_version=0.0.2
 ARG asciidoctor_pdf_version=1.5.0.alpha.16
+ARG asciidoctor_version=2.0.9
+ARG asciidoctor_confluence_version=0.0.2
+ARG asciidoctor_pdf_version=1.5.0.alpha.17
+ARG asciidoctor_diagram_version=1.5.16
+ARG asciidoctor_epub3_version=1.5.0.alpha.9
+ARG asciidoctor_mathematical_version=0.3.0
+ARG asciidoctor_revealjs_version=2.0.0
 
 ENV ASCIIDOCTOR_VERSION=${asciidoctor_version} \
-  ASCIIDOCTOR_PDF_VERSION=${asciidoctor_pdf_version}
+  ASCIIDOCTOR_CONFLUENCE_VERSION=${asciidoctor_confluence_version} \
+  ASCIIDOCTOR_PDF_VERSION=${asciidoctor_pdf_version} \
+  ASCIIDOCTOR_DIAGRAM_VERSION=${asciidoctor_diagram_version} \
+  ASCIIDOCTOR_EPUB3_VERSION=${asciidoctor_epub3_version} \
+  ASCIIDOCTOR_MATHEMATICAL_VERSION=${asciidoctor_mathematical_version} \
+  ASCIIDOCTOR_REVEALJS_VERSION=${asciidoctor_revealjs_version}
 
 # Installing package required for the runtime of
 # any of the asciidoctor-* functionnalities
@@ -42,13 +55,13 @@ RUN gem install --no-document \
     rake \
     mathematical \
     "asciidoctor:${ASCIIDOCTOR_VERSION}" \
-    asciidoctor-confluence \
-    asciidoctor-diagram \
-    asciidoctor-epub3:1.5.0.alpha.7 \
-    asciidoctor-mathematical \
+    "asciidoctor-confluence:${ASCIIDOCTOR_CONFLUENCE_VERSION}" \
+    "asciidoctor-diagram:${ASCIIDOCTOR_DIAGRAM_VERSION}" \
+    "asciidoctor-epub3:${ASCIIDOCTOR_EPUB3_VERSION}" \
+    "asciidoctor-mathematical:${ASCIIDOCTOR_MATHEMATICAL_VERSION}" \
     asciimath \
     "asciidoctor-pdf:${ASCIIDOCTOR_PDF_VERSION}" \
-    asciidoctor-revealjs \
+    "asciidoctor-revealjs:${ASCIIDOCTOR_REVEALJS_VERSION}" \
     coderay \
     epubcheck:3.0.1 \
     haml \

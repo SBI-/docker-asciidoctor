@@ -129,6 +129,17 @@ teardown() {
   [ "$(echo ${output} | grep -c -i error)" -eq 0 ]
 }
 
+@test "We can generate an EPub document with asciidoctor-epub3" {
+
+  run docker run -t --rm \
+    -v "${BATS_TEST_DIRNAME}":/documents/ \
+    "${DOCKER_IMAGE_NAME_TO_TEST}" \
+      asciidoctor-epub3 /documents/fixtures/epub-sample/sample-book.adoc -D /documents/tmp
+
+  [ "${status}" -eq 0 ]
+
+}
+
 @test "We can generate an HTML document with asciimath as backend" {
   run docker run -t --rm \
     -v "${BATS_TEST_DIRNAME}":/documents/ \
@@ -164,3 +175,6 @@ teardown() {
 
   [ "$(echo ${output} | grep -c -i error)" -eq 0 ]
 }
+
+# asciimath isn't tested with the PDF backend because it doesn't support stem blocks
+# without image rendering
